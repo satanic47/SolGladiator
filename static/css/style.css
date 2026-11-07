@@ -24,13 +24,23 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+html, body {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-main);
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 }
 
@@ -52,44 +62,48 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(18, 20, 32, 0.85);
+  padding: 0.4rem 1.25rem;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  background: rgba(18, 20, 32, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--bg-card-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   z-index: 100;
+  flex-shrink: 0;
 }
 
 .brand-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .brand-title {
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   background: linear-gradient(135deg, var(--sol-purple) 0%, var(--sol-green) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 25px rgba(20, 241, 149, 0.3);
+  text-shadow: 0 0 20px rgba(20, 241, 149, 0.3);
 }
 
 .badge-devnet {
   background: rgba(20, 241, 149, 0.12);
   color: var(--sol-green);
   border: 1px solid rgba(20, 241, 149, 0.35);
-  padding: 0.25rem 0.65rem;
+  padding: 0.15rem 0.55rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .badge-devnet::before {
@@ -105,22 +119,22 @@ body::after {
 .wallet-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .btn-cyber {
   background: linear-gradient(135deg, rgba(153, 69, 255, 0.2), rgba(20, 241, 149, 0.2));
   color: var(--text-main);
   border: 1px solid var(--sol-green);
-  padding: 0.55rem 1.1rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -135,12 +149,12 @@ body::after {
 .wallet-display {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid var(--bg-card-border);
-  padding: 0.45rem 0.85rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .wallet-address {
@@ -156,55 +170,61 @@ body::after {
 /* Arena Grid Layout */
 .arena-container {
   display: grid;
-  grid-template-columns: 340px 1fr 340px;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 0.65rem;
+  padding: 0.4rem 0.85rem;
   flex: 1;
-  max-width: 1600px;
+  min-height: 0;
+  height: 100%;
+  max-width: 1750px;
   margin: 0 auto;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Fighter Sidebars */
 .fighter-hud {
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
-  border-radius: 12px;
-  padding: 1.25rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  gap: 0.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
+  height: 100%;
+  min-height: 0;
 }
 
 .fighter-hud.f1-card {
-  border-left: 4px solid var(--neon-cyan);
+  border-left: 3px solid var(--neon-cyan);
 }
 
 .fighter-hud.f2-card {
-  border-right: 4px solid var(--neon-pink);
+  border-right: 3px solid var(--neon-pink);
 }
 
 .fighter-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.65rem;
 }
 
 .gladiator-avatar {
-  width: 74px;
-  height: 74px;
-  border-radius: 12px;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
   background: #10121d;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 16px rgba(0, 255, 255, 0.35);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
   position: relative;
+  flex-shrink: 0;
 }
 
 .gladiator-avatar-img {
@@ -220,16 +240,16 @@ body::after {
 }
 
 .gladiator-info h3 {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .gladiator-class {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   font-weight: 700;
 }
 
@@ -242,22 +262,22 @@ body::after {
 .gauge-box {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.2rem;
 }
 
 .gauge-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-dim);
 }
 
 .gauge-track {
   width: 100%;
-  height: 12px;
+  height: 8px;
   background: rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -265,17 +285,17 @@ body::after {
 .gauge-fill {
   height: 100%;
   transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .hp-fill {
   background: linear-gradient(90deg, #ff2a6d, #00f59b);
-  box-shadow: 0 0 10px rgba(0, 245, 155, 0.4);
+  box-shadow: 0 0 8px rgba(0, 245, 155, 0.4);
 }
 
 .stamina-fill {
   background: linear-gradient(90deg, #0072ff, #00c6ff);
-  box-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.4);
 }
 
 /* AI Rationale Stream */
@@ -283,50 +303,57 @@ body::after {
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--bg-card-border);
   border-radius: 8px;
-  padding: 0.75rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
   color: #c0c6d8;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.25rem;
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .ai-reasoning-box .title {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
   color: var(--sol-purple);
   font-weight: 700;
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .battle-cry-quote {
   font-style: italic;
   color: var(--neon-gold);
   border-left: 2px solid var(--neon-gold);
-  padding-left: 0.5rem;
-  font-size: 0.78rem;
+  padding-left: 0.4rem;
+  font-size: 0.7rem;
 }
 
 /* Center Stage: Canvas & Controls */
 .arena-center {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.4rem;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
 }
 
 .canvas-wrapper {
   background: #08090e;
   border: 1px solid var(--bg-card-border);
-  border-radius: 12px;
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  height: 420px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
 #arenaCanvas {
@@ -339,38 +366,40 @@ body::after {
 .control-deck {
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  padding: 0.35rem 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.3rem;
+  flex-shrink: 0;
 }
 
 .action-buttons-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0.6rem;
+  gap: 0.35rem;
 }
 
 .btn-action {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--bg-card-border);
   color: var(--text-main);
-  border-radius: 8px;
-  padding: 0.7rem 0.5rem;
+  border-radius: 6px;
+  padding: 0.3rem 0.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.12rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 48px;
 }
 
 .btn-action:hover:not(:disabled) {
   border-color: var(--neon-cyan);
   background: rgba(0, 255, 255, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(0, 255, 255, 0.2);
 }
 
 .btn-action.insufficient-ep {
@@ -384,7 +413,7 @@ body::after {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid var(--bg-card-border);
   color: var(--text-dim);
-  padding: 0.35rem 0.65rem;
+  padding: 0.2rem 0.45rem;
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 700;
@@ -405,17 +434,17 @@ body::after {
 }
 
 .btn-action .icon {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .btn-action .name {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .btn-action .cost {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--text-dim);
 }
 
@@ -424,7 +453,8 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  font-size: 0.75rem;
 }
 
 .wager-group {
@@ -450,9 +480,10 @@ body::after {
   background: linear-gradient(135deg, var(--sol-purple), var(--sol-green));
   color: #000;
   border: none;
-  padding: 0.6rem 1.4rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 6px;
   font-weight: 800;
+  font-size: 0.72rem;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -460,7 +491,7 @@ body::after {
 }
 
 .btn-primary-duel:hover {
-  box-shadow: 0 0 20px rgba(20, 241, 149, 0.6);
+  box-shadow: 0 0 15px rgba(20, 241, 149, 0.6);
   transform: translateY(-1px);
 }
 
@@ -468,10 +499,10 @@ body::after {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--bg-card-border);
   color: var(--text-main);
-  padding: 0.6rem 1rem;
+  padding: 0.35rem 0.65rem;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   cursor: pointer;
 }
 
@@ -483,29 +514,33 @@ body::after {
 .ledger-drawer {
   background: var(--bg-card);
   border-top: 1px solid var(--bg-card-border);
-  padding: 1rem 2rem;
+  padding: 0.25rem 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  max-height: 240px;
+  gap: 0.75rem;
+  height: 86px;
+  min-height: 86px;
+  max-height: 86px;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .terminal-box {
   background: #08090d;
   border: 1px solid var(--bg-card-border);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
   overflow-y: auto;
   font-family: monospace;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  height: 180px;
+  gap: 0.2rem;
+  height: 56px;
 }
 
 .log-entry {
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .log-entry.crit { color: #ff5252; font-weight: bold; }
@@ -515,29 +550,32 @@ body::after {
 .escrow-vault-card {
   background: #08090d;
   border: 1px solid var(--bg-card-border);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-size: 0.8rem;
+  gap: 0.15rem;
+  font-size: 0.7rem;
+  height: 56px;
+  overflow: hidden;
 }
 
 .escrow-vault-card h4 {
   color: var(--sol-green);
   text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  font-size: 0.68rem;
+  letter-spacing: 0.8px;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .escrow-item {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.05rem;
+  font-size: 0.66rem;
 }
 
 .escrow-item span.label {
@@ -590,12 +628,11 @@ body::after {
   to { opacity: 1; transform: scale(1); }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
   .arena-container {
-    grid-template-columns: 1fr;
-  }
-  .ledger-drawer {
-    grid-template-columns: 1fr;
+    grid-template-columns: 240px 1fr 240px;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
   }
 }
 

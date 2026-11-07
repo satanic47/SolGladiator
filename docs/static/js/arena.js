@@ -109,16 +109,16 @@ class ArenaApp {
   initCanvasSize() {
     const rect = this.canvas.parentElement.getBoundingClientRect();
     this.canvas.width = rect.width;
-    this.canvas.height = rect.height || 420;
+    this.canvas.height = rect.height || 300;
 
     this.f1.x = this.canvas.width * 0.28;
     this.f1.targetX = this.f1.x;
-    this.f1.y = this.canvas.height * 0.72;
+    this.f1.y = this.canvas.height * 0.74;
     this.f1.targetY = this.f1.y;
 
     this.f2.x = this.canvas.width * 0.72;
     this.f2.targetX = this.f2.x;
-    this.f2.y = this.canvas.height * 0.72;
+    this.f2.y = this.canvas.height * 0.74;
     this.f2.targetY = this.f2.y;
   }
 
@@ -603,7 +603,7 @@ class ArenaApp {
 
     // Render Realistic Sprite Miniature
     if (sprite && sprite.complete && sprite.naturalWidth > 0) {
-      const renderHeight = 220;
+      const renderHeight = Math.min(210, Math.max(110, this.canvas.height * 0.52));
       const aspect = sprite.naturalWidth / sprite.naturalHeight;
       const renderWidth = renderHeight * aspect;
 
