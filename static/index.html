@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolGladiator — Autonomous AI Cyber-Gladiator Arena on Solana</title>
+  <link rel="stylesheet" href="static/css/style.css?v=5.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Cyber Header -->
+  <header class="cyber-header">
+    <div class="brand-section">
+      <div class="brand-title">SOLGLADIATOR</div>
+      <div class="badge-devnet">Solana Devnet</div>
+    </div>
+
+    <div class="wallet-section">
+      <button id="btnStartTour" class="btn-cyber" style="border-color: var(--neon-cyan); color: var(--neon-cyan);" title="Start 10-step guided tour">🎓 Arena Tour</button>
+      <button id="btnToggleSound" class="btn-cyber">🔊 Sound On</button>
+      <button id="btnCreateGuest" class="btn-cyber" title="Zero-friction instant wallet generation on Solana Devnet">⚡ 1-Click Guest Wallet</button>
+      <div class="wallet-display">
+        <span id="userWalletAddress" class="wallet-address">Guest Wallet</span>
+        <span id="userWalletBalance" class="wallet-balance">2.000 SOL</span>
+        <a id="userWalletExplorer" class="explorer-link" href="#" target="_blank" style="display:none;">Explorer ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Arena Layout -->
+  <main class="arena-container">
+
+    <!-- Fighter 1 HUD (Player / Challenger) -->
+    <aside class="fighter-hud f1-card">
+      <div class="fighter-header">
+        <div class="gladiator-avatar" id="f1Avatar">
+          <img id="f1AvatarImg" class="gladiator-avatar-img" src="static/avatars/axe_01.png" alt="Fighter 1">
+        </div>
+        <div class="gladiator-info">
+          <h3 id="f1Name">Axe-01 'Overclock'</h3>
+          <span class="gladiator-class cyber-berserker" id="f1Class">CYBER BERSERKER</span>
+        </div>
+      </div>
+
+      <!-- Health Bar -->
+      <div class="gauge-box">
+        <div class="gauge-label">
+          <span>HULL INTEGRITY</span>
+          <span id="f1HpText">115 / 115</span>
+        </div>
+        <div class="gauge-track">
+          <div id="f1HpBar" class="gauge-fill hp-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Stamina Bar -->
+      <div class="gauge-box">
+        <div class="gauge-label">
+          <span>ENERGY FLUX (EP)</span>
+          <span id="f1StaminaText">90 / 90</span>
+        </div>
+        <div class="gauge-track">
+          <div id="f1StaminaBar" class="gauge-fill stamina-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- AI Tactical Reasoning Stream -->
+      <div class="ai-reasoning-box">
+        <div class="title">🧠 Neural Thought Engine</div>
+        <div id="f1AiRationale">Analyzing opponent telemetry... Priming capacitors.</div>
+        <div class="battle-cry-quote" id="f1BattleCry">"SYSTEM OVERCLOCK ENGAGED!"</div>
+      </div>
+    </aside>
+
+    <!-- Center Stage: Canvas & Controls -->
+    <section class="arena-center">
+
+      <!-- 60FPS Canvas Wrapper -->
+      <div class="canvas-wrapper">
+        <canvas id="arenaCanvas"></canvas>
+
+        <!-- Victory Modal Overlay -->
+        <div id="victoryOverlay" class="victory-overlay" style="display: none;">
+          <div class="victory-title" id="victorTitle">VICTOR REVEALED</div>
+          <div id="victorReceipt" class="escrow-vault-card" style="width: 85%; max-width: 480px; text-align: center;"></div>
+          <button class="btn-primary-duel" onclick="window.arenaApp.createNewDuel()">Rematch on Devnet</button>
+        </div>
+      </div>
+
+      <!-- Control Deck -->
+      <div class="control-deck">
+
+        <!-- Combat Move Buttons with Counter-Mechanic Tooltips -->
+        <div class="action-buttons-grid">
+          <button class="btn-action" data-action="LIGHT_ATTACK" title="Fast jab. Low stamina cost. Interrupts opponent recharge for 1.5x damage.">
+            <span class="icon">🗡️</span>
+            <span class="name">Light Jab</span>
+            <span class="cost">15 EP</span>
+          </button>
+          <button class="btn-action" data-action="HEAVY_ATTACK" title="Heavy smash. Deals huge damage, but can be parried into a lethal riposte!">
+            <span class="icon">💥</span>
+            <span class="name">Heavy Swing</span>
+            <span class="cost">35 EP</span>
+          </button>
+          <button class="btn-action" data-action="PARRY_SHIELD" title="Hard-light matrix. Perfect parry against Heavy Attack reflects 70% damage back!">
+            <span class="icon">🛡️</span>
+            <span class="name">Parry Shield</span>
+            <span class="cost">10 EP</span>
+          </button>
+          <button class="btn-action" data-action="ARCANE_BURST" title="Plasma beam. Bypasses and pierces directly through Parry Shields!">
+            <span class="icon">🔮</span>
+            <span class="name">Arcane Burst</span>
+            <span class="cost">45 EP</span>
+          </button>
+          <button class="btn-action" data-action="FOCUS_RECHARGE" title="Restores 40 EP. High risk: takes 1.5x damage if struck while charging.">
+            <span class="icon">⚡</span>
+            <span class="name">Recharge</span>
+            <span class="cost">+40 EP</span>
+          </button>
+          <button class="btn-action" data-action="SURGE_STRIKE" title="Ultimate finisher. Decimates vulnerable opponents with low HP.">
+            <span class="icon">🔥</span>
+            <span class="name">Surge Strike</span>
+            <span class="cost">60 EP</span>
+          </button>
+        </div>
+
+        <!-- Global Match Settings Bar -->
+        <div class="match-meta-bar">
+          <div style="display: flex; gap: 0.6rem; align-items: center;">
+            <select id="selectFighter1" class="wager-input" style="width: 145px;">
+              <option value="axe_01">Axe-01 (Berserker)</option>
+              <option value="vex_null">Vex-Null (Mage)</option>
+              <option value="kage_9">Kage-9 (Assassin)</option>
+              <option value="titan_04">Titan-04 (Tank)</option>
+            </select>
+            <span style="color: var(--text-dim); font-weight: bold;">VS</span>
+            <select id="selectFighter2" class="wager-input" style="width: 145px;">
+              <option value="titan_04">Titan-04 (Tank)</option>
+              <option value="axe_01">Axe-01 (Berserker)</option>
+              <option value="vex_null">Vex-Null (Mage)</option>
+              <option value="kage_9">Kage-9 (Assassin)</option>
+            </select>
+          </div>
+
+          <div class="wager-group">
+            <label for="inputWager">Wager:</label>
+            <input type="number" id="inputWager" class="wager-input" value="0.05" step="0.01" min="0.01" max="10.0">
+            <span>SOL</span>
+          </div>
+
+          <!-- Speed Controls -->
+          <div class="speed-controls" style="display: flex; gap: 0.3rem;">
+            <button class="btn-speed active" data-speed="1x">1x</button>
+            <button class="btn-speed" data-speed="2x">2x</button>
+            <button class="btn-speed" data-speed="instant">Instant</button>
+          </div>
+
+          <div style="display: flex; gap: 0.6rem;">
+            <button id="btnAutoBattle" class="btn-secondary">🤖 AI Auto-Battle</button>
+            <button id="btnStartDuel" class="btn-primary-duel">Lock Escrow & Fight</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Fighter 2 HUD (Defender / Opponent) -->
+    <aside class="fighter-hud f2-card">
+      <div class="fighter-header">
+        <div class="gladiator-avatar" id="f2Avatar">
+          <img id="f2AvatarImg" class="gladiator-avatar-img" src="static/avatars/titan_04.png" alt="Fighter 2">
+        </div>
+        <div class="gladiator-info">
+          <h3 id="f2Name">Titan-04 'Sol Bastion'</h3>
+          <span class="gladiator-class aegis-sentinel" id="f2Class">AEGIS SENTINEL</span>
+        </div>
+      </div>
+
+      <!-- Health Bar -->
+      <div class="gauge-box">
+        <div class="gauge-label">
+          <span>HULL INTEGRITY</span>
+          <span id="f2HpText">125 / 125</span>
+        </div>
+        <div class="gauge-track">
+          <div id="f2HpBar" class="gauge-fill hp-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Stamina Bar -->
+      <div class="gauge-box">
+        <div class="gauge-label">
+          <span>ENERGY FLUX (EP)</span>
+          <span id="f2StaminaText">95 / 95</span>
+        </div>
+        <div class="gauge-track">
+          <div id="f2StaminaBar" class="gauge-fill stamina-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- AI Tactical Reasoning Stream -->
+      <div class="ai-reasoning-box">
+        <div class="title">🧠 Neural Thought Engine</div>
+        <div id="f2AiRationale">Solid as the consensus algorithm. Reflective matrix online.</div>
+        <div class="battle-cry-quote" id="f2BattleCry">"NONE SHALL PASS THE BULWARK!"</div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Real-Time Combat Ledger & Escrow Drawer -->
+  <footer class="ledger-drawer">
+    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Live Combat Telemetry</span>
+        <button id="btnClearTerminal" style="background: none; border: 1px solid var(--bg-card-border); color: var(--text-dim); border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; cursor: pointer;">Clear Logs</button>
+      </div>
+      <div class="terminal-box" id="terminalLogs">
+        <div class="log-entry settlement">⚡ SOLGLADIATOR TELEMETRY ENGINE CONNECTED (SOLANA DEVNET)</div>
+      </div>
+    </div>
+
+    <div class="escrow-vault-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4>🔒 Dual-Fighter On-Chain Escrow Vault</h4>
+        <button id="btnCopyEscrow" style="background: none; border: 1px solid var(--bg-card-border); color: var(--neon-cyan); border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; cursor: pointer;">Copy PDA</button>
+      </div>
+      <div class="escrow-item">
+        <span class="label">Escrow PDA:</span>
+        <span class="val" id="escrowPda" style="font-size: 0.75rem; word-break: break-all;">---</span>
+      </div>
+      <div class="escrow-item">
+        <span class="label">Total Locked Pot:</span>
+        <span class="val" id="escrowPot">0.100 SOL</span>
+      </div>
+      <div class="escrow-item">
+        <span class="label">Smart Vault Status:</span>
+        <span class="val" id="escrowStatus" style="color: var(--sol-green);">LOCKED</span>
+      </div>
+      <div class="escrow-item">
+        <span class="label">Security & Consensus:</span>
+        <span class="val">Replay-Guarded | 2% Protocol Treasury Fee</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts with cache busters -->
+  <script src="static/js/audio.js?v=5.0"></script>
+  <script src="static/js/solana.js?v=5.0"></script>
+  <script src="static/js/arena.js?v=5.0"></script>
+  <script src="static/js/tutorial.js?v=5.0"></script>
+</body>
+</html>
