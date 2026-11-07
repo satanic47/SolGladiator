@@ -142,6 +142,7 @@ class ArenaTutorial {
 
     // Connect header guide button
     document.getElementById('btnStartTour')?.addEventListener('click', () => {
+      window.soundFX?.playAnnouncer?.('welcome');
       this.startTour(0);
     });
 

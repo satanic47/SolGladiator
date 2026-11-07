@@ -181,6 +181,29 @@ class SoundFX {
       osc.stop(startTime + 0.45);
     });
   }
+
+  playAnnouncer(name) {
+    if (this.muted) return;
+    const soundMap = {
+      welcome: 'static/audio/announcer_welcome.mp3',
+      fight: 'static/audio/announcer_fight.mp3',
+      parry: 'static/audio/announcer_parry.mp3',
+      crit: 'static/audio/announcer_crit.mp3',
+      victory: 'static/audio/announcer_victory.mp3'
+    };
+    const path = soundMap[name];
+    if (!path) return;
+    try {
+      const audio = new Audio(path);
+      audio.volume = 0.9;
+      audio.play().catch(err => {
+        // Autoplay policy fallback (silent catch)
+        console.log('Announcer voice line playback deferred:', name, err.message);
+      });
+    } catch (e) {
+      console.warn('Audio play error:', e);
+    }
+  }
 }
 
 window.soundFX = new SoundFX();

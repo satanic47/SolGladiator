@@ -740,6 +740,7 @@ class ArenaApp {
       this.setActionButtonsState(true);
       this.updateActionAvailability();
       document.getElementById('victoryOverlay').style.display = 'none';
+      window.soundFX?.playAnnouncer?.('fight');
 
     } catch (err) {
       console.warn('Backend API unavailable. Initializing client-side arena duel for live demo.', err);
@@ -778,6 +779,7 @@ class ArenaApp {
       this.setActionButtonsState(true);
       this.updateActionAvailability();
       document.getElementById('victoryOverlay').style.display = 'none';
+      window.soundFX?.playAnnouncer?.('fight');
     }
   }
 
@@ -878,6 +880,7 @@ class ArenaApp {
     // Audio & Particle Clashes
     if (turn.fighter1_parried || turn.fighter2_parried) {
       window.soundFX.playParry();
+      window.soundFX?.playAnnouncer?.('parry');
       this.spawnSparks(impactX, impactY, '#ffd740', 45);
       this.addFloatingText('PERFECT PARRY!', impactX, impactY - 30, '#ffd740', true);
       this.triggerScreenShake(16);
@@ -885,6 +888,7 @@ class ArenaApp {
       if (turn.fighter2_parried) this.f2.hitFlash = 1.0;
     } else if (turn.is_fighter1_crit || turn.is_fighter2_crit) {
       window.soundFX.playHeavyImpact();
+      window.soundFX?.playAnnouncer?.('crit');
       this.spawnSparks(impactX, impactY, '#ff2a6d', 55);
       this.addFloatingText('CRITICAL STRIKE!', impactX, impactY - 32, '#ff2a6d', true);
       this.triggerScreenShake(20);
@@ -924,6 +928,7 @@ class ArenaApp {
     clearTimeout(this.autoBattleTimer);
     this.setActionButtonsState(false);
     window.soundFX.playVictory();
+    window.soundFX?.playAnnouncer?.('victory');
 
     const winnerId = data.winner_id;
     const winnerName = winnerId === this.matchState.fighter1.id
