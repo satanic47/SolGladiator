@@ -170,16 +170,17 @@ body::after {
 /* Arena Grid Layout */
 .arena-container {
   display: grid;
-  grid-template-columns: 280px 1fr 280px;
-  gap: 0.65rem;
-  padding: 0.4rem 0.85rem;
+  grid-template-columns: minmax(170px, 260px) minmax(0, 1fr) minmax(170px, 260px);
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
   flex: 1;
   min-height: 0;
   height: 100%;
-  max-width: 1750px;
+  max-width: 100vw;
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Fighter Sidebars */
@@ -187,15 +188,16 @@ body::after {
   background: var(--bg-card);
   border: 1px solid var(--bg-card-border);
   border-radius: 10px;
-  padding: 0.65rem 0.75rem;
+  padding: 0.5rem 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
   height: 100%;
   min-height: 0;
+  min-width: 0;
 }
 
 .fighter-hud.f1-card {
@@ -451,18 +453,34 @@ body::after {
 /* Global Match Actions */
 .match-meta-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+  width: 100%;
+}
+
+.fighter-selectors {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 1;
+}
+
+.fighter-selectors select {
+  max-width: 118px !important;
+  font-size: 0.7rem !important;
+  padding: 0.2rem 0.35rem !important;
 }
 
 .wager-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+  gap: 0.3rem;
+  font-size: 0.72rem;
   color: var(--text-dim);
+  flex-shrink: 1;
 }
 
 .wager-input {
@@ -470,20 +488,21 @@ body::after {
   border: 1px solid var(--bg-card-border);
   color: var(--sol-green);
   font-weight: 700;
-  padding: 0.4rem 0.65rem;
+  padding: 0.25rem 0.4rem;
   border-radius: 6px;
-  width: 90px;
+  width: 65px;
   text-align: center;
+  font-size: 0.72rem;
 }
 
 .btn-primary-duel {
   background: linear-gradient(135deg, var(--sol-purple), var(--sol-green));
   color: #000;
   border: none;
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 6px;
   font-weight: 800;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -628,11 +647,60 @@ body::after {
   to { opacity: 1; transform: scale(1); }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .arena-container {
-    grid-template-columns: 240px 1fr 240px;
-    gap: 0.5rem;
-    padding: 0.35rem 0.5rem;
+    grid-template-columns: minmax(150px, 210px) minmax(0, 1fr) minmax(150px, 210px);
+    gap: 0.35rem;
+    padding: 0.25rem 0.4rem;
+  }
+  .gladiator-avatar {
+    width: 44px;
+    height: 44px;
+  }
+  .gladiator-info h3 {
+    font-size: 0.8rem;
+  }
+  .btn-action {
+    min-height: 42px;
+    padding: 0.2rem 0.1rem;
+  }
+  .btn-action .icon {
+    font-size: 0.85rem;
+  }
+  .btn-action .name {
+    font-size: 0.6rem;
+  }
+  .ai-reasoning-box {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .arena-container {
+    grid-template-columns: minmax(140px, 185px) minmax(0, 1fr) minmax(140px, 185px);
+    gap: 0.3rem;
+    padding: 0.2rem 0.35rem;
+  }
+  .cyber-header {
+    padding: 0.25rem 0.5rem;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+  }
+  .brand-title {
+    font-size: 1.05rem;
+  }
+  .badge-devnet {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .btn-cyber {
+    font-size: 0.64rem;
+    padding: 0.18rem 0.4rem;
+  }
+  .wallet-display {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.4rem;
   }
 }
 
